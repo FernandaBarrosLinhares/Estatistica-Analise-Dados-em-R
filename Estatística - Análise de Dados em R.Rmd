@@ -1,0 +1,133 @@
+---
+title: "Estatistica Analise de Dados"
+author: "Fernanda Linhares"
+date: "2025-09-03"
+output: html_document
+---
+
+# **Estatística - Análise de Dados em R**
+
+A análise de dados e a estatística em R é uma jornada fascinante, abrangendo desde conceitos fundamentais até técnicas avançadas. Vamos adaptar os tópicos mencionados para o ambiente R, destacando as funcionalidades e ferramentas disponíveis neste ecossistema.
+
+## **Estatística Descritiva**
+
+A estatística descritiva em R se concentra na organização, resumo e interpretação de dados. Usamos pacotes como `base`, `dplyr` e `tidyr` para manipular dados, e funções como `mean`, `median`, `sd` para calcular medidas descritivas.
+
+### **Frequência de Dados Qualitativos**
+
+Para analisar a frequência de dados qualitativos em R, utilizamos funções como `table` e `prop.table`. Vamos explorar isso com o conjunto de dados `iris` disponível no R base.
+
+#Importa o 'dplyr'
+
+
+
+
+```{r}
+library(dplyr)
+```
+```{r}
+# Carregar o conjunto de dados Iris
+data(iris)
+head(iris)
+```
+```{r}
+# Tabela de frequência
+frequencia <- table(iris$Species)
+print(frequencia)
+```
+```{r}
+# Frequência relativa
+frequencia_relativa <- prop.table(frequencia) * 100
+print(frequencia_relativa)
+```
+
+#### **Frequência de Dados Quantitativos**
+Para dados quantitativos, seguimos uma abordagem similar, utilizando table para frequências absolutas e prop.table para relativas.
+
+
+```{r}
+# Frequência absoluta
+frequencia_absoluta <- table(iris$Sepal.Length)
+```
+
+
+```{r}
+# Frequência relativa
+frequencia_relativa_quantitativa <- prop.table(frequencia_absoluta) * 100
+print(frequencia_relativa_quantitativa)
+```
+## **Medidas de Resumo em R**
+As medidas de resumo são fundamentais na estatística em R e são usadas para sintetizar informações complexas. Elas são divididas em medidas de posição ou localização e medidas de dispersão ou variabilidade.
+
+#### Média Aritmética
+Representa o valor médio dos dados.
+
+```{r}
+# Calcular média
+media <- mean(iris$Sepal.Length)
+print(paste("Média:", media))
+```
+#### Mediana
+O valor que divide o conjunto de dados ao meio.
+
+```{r}
+# Calcular mediana
+mediana <- median(iris$Sepal.Length)
+print(paste("Mediana:", mediana))
+```
+#### Moda
+O valor que mais repete-se.
+
+```{r}
+Moda <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+moda <- Moda(iris$Sepal.Length)
+print(paste("Moda:", moda))
+```
+#### Quartis
+Correspondem, respectivamente, ao primeiro quartil (Q1), mediana (Q2) e terceiro quartil (Q3), indicando a distribuição dos dados em 25%, 50% e 75%.
+
+```{r}
+# Calcular quartis
+quartis <- quantile(iris$Sepal.Length, c(0.25, 0.5, 0.75))
+print(quartis)
+```
+#### Amplitude
+Diferença entre o maior e o menor valor.
+
+```{r}
+# Calcular Amplitude 
+amplitude <- max(iris$Sepal.Length) - min(iris$Sepal.Length)
+print(paste("Amplitude", amplitude))
+```
+####Variância Média dos quadrados das diferenças entre cada valor e a média.
+
+```{r}
+variancia <- var(iris$Sepal.Length)
+print(paste("Variancia", variancia))
+
+```
+####Desvio Padrão Raiz quadrada da variância.
+
+```{r}
+desvio_padrao <- sd(iris$Sepal.Length)
+print(paste("Desvio Padrão:", desvio_padrao))
+```
+
+####Erro-padrão Desvio padrão da distribuição da média da amostra.
+
+```{r}
+erro_padrao <- desvio_padrao / sqrt(length(iris$Sepal.Length))
+print(paste("Erro-padrão:", erro_padrao))
+```
+####Coeficiente de Variação Relação percentual entre o desvio padrão e a média.
+```{r}
+cv <- (desvio_padrao / media) * 100
+print(paste("Coeficiente de Variação:", cv, "%"))
+```
+
+
+
